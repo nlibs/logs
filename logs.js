@@ -66,7 +66,3 @@ class Logs
 	}
 }
 module.exports = Logs;
-
-L.bind(H, "/logs")
-
-// H.get("../".l.bind)

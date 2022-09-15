@@ -1,0 +1,9 @@
+{
+	"name": "@nlibs/logs",
+	"version": "1.0.0",
+	"license": "MIT",
+	"main": "./logs.js",
+	"dependencies": {
+		"sqlite": "github:nlibs/sqlite"
+	}
+}

@@ -7,7 +7,7 @@ const WRITE_FREQUENCY = 60 * 1000;
 // writes early to disk when buffer reaches 256 kb
 const BUCKET_LIMIT = 1024 * 256;
 
-class Log
+class Logs
 {
 	constructor(path)
 	{
@@ -38,6 +38,35 @@ class Log
 	read(start, end)
 	{
 		var params = [start, end];
-		return this.db.read("SELECT v FROM data WHERE k >= ? AND k < ?", params);
+		var result = this.db.read("SELECT v FROM data WHERE k >= ? AND k < ?", params);
+		var r = [];
+
+		for (var i=0;i<result.length;i++)
+		{
+			var v = JSON.parse(result[i]["v"]);
+			for (var j=0;j<v.length;j++)
+				r.push(v[j]);
+		}
+		return r;
+	}
+
+	bind(H, url)
+	{
+		var _this = this;
+		H.get(url, function()
+		{
+			var mandatory = {"start": "int", "end": "int"}
+			q = H.parse_fields(q, res, mandatory, {})
+			if (!q)
+				return;
+
+			var r = _this.read(q.start, q.end)
+			H.end(res, 200, JSON.stringify(r));
+		})
 	}
 }
+module.exports = Logs;
+
+L.bind(H, "/logs")
+
+// H.get("../".l.bind)

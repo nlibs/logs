@@ -43,7 +43,7 @@ class Logs
 		var result = this.db.read("SELECT v FROM data WHERE k >= ? AND k < ?", params);
 		var r = [];
 
-		for (var i=0;i<result.length;i++)
+		for (var i=result.length-1;i>-1;i--)
 		{
 			var v = JSON.parse(result[i]["v"]);
 			for (var j=0;j<v.length;j++)

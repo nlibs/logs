@@ -53,7 +53,7 @@ class Logs
 	bind(H, url)
 	{
 		var _this = this;
-		H.get(url, function()
+		H.get(url, function(q, res)
 		{
 			var mandatory = {"start": "int", "end": "int"}
 			q = H.parse_fields(q, res, mandatory, {})

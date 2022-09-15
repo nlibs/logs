@@ -15,7 +15,7 @@ class Logs
 		this.current_size = 0;
 		this.current_logs = [];
 		this.db = new SQLITE(path, SCHEMA);
-		setInterval(_this.write, WRITE_FREQUENCY);
+		setInterval(function(){_this.write()}, WRITE_FREQUENCY);
 	}
 
 	log(msg)
@@ -33,6 +33,8 @@ class Logs
 		var ts = (Date.now() / 1000) | 1;
 		var params = [ts, JSON.stringify(this.current_logs)];
 		this.db.write("REPLACE INTO data (k,v) VALUES (?,?)", params);
+		this.current_logs = [];
+		this.current_size = 0;
 	}
 
 	read(start, end)
@@ -65,4 +67,5 @@ class Logs
 		})
 	}
 }
+
 module.exports = Logs;

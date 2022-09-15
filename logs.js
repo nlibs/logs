@@ -46,7 +46,7 @@ class Logs
 		for (var i=result.length-1;i>-1;i--)
 		{
 			var v = JSON.parse(result[i]["v"]);
-			for (var j=0;j<v.length;j++)
+			for (var j=v.length-1;j>-1;j--)
 				r.push(v[j]);
 		}
 		return r;

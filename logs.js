@@ -39,9 +39,16 @@ class Logs
 
 	read(start, end)
 	{
+		var ts = (Date.now() / 1000) | 1;
 		var params = [start, end];
 		var result = this.db.read("SELECT v FROM data WHERE k >= ? AND k < ?", params);
 		var r = [];
+
+		if (end > ts)
+		{
+			for (var j=this.current_logs.length-1;j>-1;j--)
+				r.push(this.current_logs[j])
+		}
 
 		for (var i=result.length-1;i>-1;i--)
 		{
